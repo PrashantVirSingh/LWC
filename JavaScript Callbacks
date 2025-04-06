@@ -1,4 +1,71 @@
-E.g. 01:    with single callback parameter
+Generally, we call functions 
+=============either:==================
+function fn() {
+
+	console.log('inside fn');
+
+}
+
+function fn2() {
+	console.log('inside fn2 @@');
+}
+
+function fn3() {
+
+	console.log('inside fn3');
+
+}
+fn();
+fn2();
+fn3();
+
+============or==============
+
+function fn() {
+
+	console.log('inside fn');
+	fn2();
+}
+
+function fn2() {
+	console.log('inside fn2 @@');
+}
+
+function fn3() {
+
+	console.log('inside fn3');
+
+}
+fn();
+//fn2();
+fn3();
+which means, we are hardcoding calling of function
+===========================
+E.g. 01: Callback function with comparison
+Normal way                                                                                     Callback:
+function fn(){                                                                        function fn(callback){                     
+
+    console.log('inside fn');                                                               console.log('inside fn');
+   fn2();                                                                                  //fn2();
+}                                                                                      callback();
+                                                                                       }
+
+function fn2(){                                                                      function fn2(){
+    console.log('inside fn2 @@');                                                         console.log('inside fn2 @@');
+}                                                                                      }
+
+function fn3(){                                                                    function fn3(){
+
+console.log('inside fn3');                                                                 console.log('inside fn3');
+    
+}                                                                                     }
+fn();
+//fn2();
+fn3();                                                                                fn(fn3);
+
+
+
+E.g. 02:    with single callback parameter
  Normal way:                                                                                     callback:     
  
  function learn() {                                                           function learn(callback1, callback2) {
@@ -20,7 +87,7 @@ E.g. 01:    with single callback parameter
  
  
  
- E.g. 02: with mulitple callback parameter
+ E.g. 03: with mulitple callback parameter
  
  Normal way:                                                                                     callback:     
  
@@ -47,8 +114,61 @@ E.g. 01:    with single callback parameter
  												                            Output:
  										                          I am learning, LWC!
  										                          I am learning from, Prashant Veer Singh!
- 
- E.g. 03: Asynchronous Call
+
+
+E.g. 04:
+function input(input1, input2, input3){
+    console.log('inside input function');
+    console.log('input1 is: ',input1);
+    console.log(`input 2 is: ${input2}`);
+   input3(input1, input2);
+}
+
+function sum(s1, s2){
+
+    s3 = s1+s2;
+  console.log('sum is:  ',s3);
+}
+
+function diff(d1, d2){
+    d3=d1-d2;
+    console.log('difference is: ',d3);
+}
+input(6,4, sum);
+
+
+
+E.g. 05:
+function input(input1, input2, input3,input4){
+    console.log('inside input function');
+    console.log('input1 is: ',input1);
+    console.log(`input 2 is: ${input2}`);
+  
+    input4(input1, input2);
+     input3(input1, input2);
+}
+
+function sum(s1, s2){
+
+    s3 = s1+s2;
+  console.log('sum is:  ',s3);
+}
+
+function diff(d1, d2){
+    d3=d1-d2;
+    console.log('difference is: ',d3);
+}
+input(6,4, sum, diff);
+
+Output: 
+inside input function
+input1 is:  6
+input 2 is: 4
+difference is:  2
+sum is:   10
+
+
+ E.g. 06: Asynchronous Call
  function fetchData(callback) {
    setTimeout(() => {
      const data = { id: 1, name: "Veer - the developer" };
