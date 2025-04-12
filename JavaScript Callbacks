@@ -247,6 +247,41 @@ handleClick() {
 }
 
 
+E.g. 08: use of setInterval() & clearInterval():
+<template>
+    <p>Counter: {counter}</p>
+    <lightning-button label="Start" onclick={startCounter}></lightning-button>
+    <lightning-button label="Stop" onclick={stopCounter}></lightning-button>
+</template>
+
+
+import { LightningElement } from 'lwc';
+
+export default class IntervalDemo extends LightningElement {
+    counter = 0;
+    intervalId;
+
+    startCounter() {
+        // Prevent multiple intervals
+        if (this.intervalId) return;
+
+        this.intervalId = setInterval(() => {
+            this.counter += 1;
+        }, 1000); // every 1 second
+    }
+
+    stopCounter() {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+    }
+
+    disconnectedCallback() {
+        // Clean up when component is destroyed
+        clearInterval(this.intervalId);
+    }
+}
+
+
  link for online js compiler: https://nextleap.app/online-compiler/javascript-programming
                               https://codepen.io/pen/
                               https://jsfiddle.net/
