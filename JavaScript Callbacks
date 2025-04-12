@@ -226,7 +226,27 @@ handleClick() {
 		 <target>lightning__RecordPage</target>
     </targets>
 </LightningComponentBundle>
- 
+ ============alternate approach=====
+import { LightningElement } from 'lwc';
+
+export default class CallbackDemo extends LightningElement {
+showOut;
+
+handleClick() {
+    
+    setTimeout(() => {
+        this.myfun();
+    }, 1000);
+}
+
+    myfun() {
+        
+        this.showOut = 'Hello! Prashant Veer Singh';
+    }
+
+}
+
+
  link for online js compiler: https://nextleap.app/online-compiler/javascript-programming
                               https://codepen.io/pen/
                               https://jsfiddle.net/
