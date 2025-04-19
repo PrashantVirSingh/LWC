@@ -107,3 +107,8 @@ export default class LearnLwc extends LightningElement {
         this.rowOffset += 100;
     }
 }
+
+==============================
+Official salesforce documents: https://developer.salesforce.com/docs/component-library/bundle/lightning-datatable/example
+============================== https://www.lightningdesignsystem.com/2e1ef8501/p/86f13a-data-table
+                               https://sds-site-docs-1fea39e7763a.herokuapp.com/index.html?path=/story/components-data-table-lbc-examples--with-infinite-scrolling
