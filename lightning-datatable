@@ -1,0 +1,109 @@
+==============Apex class:=================================
+
+public with sharing class Fetch_Account {
+  @AuraEnabled(cacheable=true)
+    public static list<Account> fetchAcc(){
+        list<Account> lstAcc = new list<Account>();
+        lstAcc=[select Id, Name, Active__c,NumberOfEmployees,Website,Phone from Account Limit 10];
+        return lstAcc;
+
+    }
+}
+
+===============LWC====================
+Type 1. Basic Datatable: with checkbox & selectAll (how to work with checkbox will discuss later)
+==============================================================================================================
+<template>
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}>
+        </lightning-datatable>
+    </div>
+</template>
+
+import { LightningElement,wire } from 'lwc';
+import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
+
+const columns = [
+    { label: 'Id', fieldName: 'Id' },
+    { label: 'Name', fieldName: 'Name'},
+    { label: 'Status', fieldName: 'Active__c'},
+    { label: 'Number of Employees', fieldName: 'NumberOfEmployees'},
+    { label: 'Website', fieldName: 'Website',type: 'url'},
+    { label: 'Phone', fieldName: 'phone', type: 'phone' },
+    
+];
+
+export default class LearnLwc extends LightningElement {
+    data = [];
+    columns = columns;
+    error;
+@wire(apexM)
+    wiredAccount({ data, error }) {
+    if (data) {
+      this.data = data;
+      this.error = undefined;
+    } else if (error) {
+      this.error = error;
+      this.data = undefined;
+    }
+  }
+}
+
+==============================================================================================================
+Type 2. Datatable with row number: Specify show-row-number-column to show row numbers in the data table
+==============================================================================================================
+<template>
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={data}
+                show-row-number-column
+                row-number-offset={rowOffset}
+                hide-checkbox-column
+                columns={columns}>
+        </lightning-datatable>
+    </div>
+    <div class="slds-m-around--medium">
+        <lightning-button
+                label="Increase row offset"
+                onclick={increaseRowOffset}>
+        </lightning-button>
+    </div>
+</template>
+
+import { LightningElement,wire } from 'lwc';
+import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
+
+const columns = [
+    { label: 'Id', fieldName: 'Id' },
+    { label: 'Name', fieldName: 'Name'},
+    { label: 'Status', fieldName: 'Active__c'},
+    { label: 'Number of Employees', fieldName: 'NumberOfEmployees'},
+    { label: 'Website', fieldName: 'Website',type: 'url'},
+    { label: 'Phone', fieldName: 'phone', type: 'phone' },
+    
+];
+
+export default class LearnLwc extends LightningElement {
+    data = [];
+    columns = columns;
+    rowOffset = 0;
+    error;
+@wire(apexM)
+    wiredAccount({ data, error }) {
+    if (data) {
+      this.data = data;
+      this.error = undefined;
+    } else if (error) {
+      this.error = error;
+      this.data = undefined;
+    }
+  }
+
+  increaseRowOffset() {
+        this.rowOffset += 100;
+    }
+}
