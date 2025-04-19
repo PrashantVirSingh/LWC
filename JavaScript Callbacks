@@ -281,7 +281,10 @@ export default class IntervalDemo extends LightningElement {
     }
 }
 
-
- link for online js compiler: https://nextleap.app/online-compiler/javascript-programming
-                              https://codepen.io/pen/
-                              https://jsfiddle.net/
+=============================
+ link for online js compiler:       https://nextleap.app/online-compiler/javascript-programming
+==============================      https://codepen.io/pen/
+                                    https://jsfiddle.net/
+===================
+Official Documents: https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout
+===================
