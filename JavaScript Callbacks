@@ -41,7 +41,9 @@ fn();
 fn3();
 which means, we are hardcoding calling of function
 ===========================
+========
 E.g. 01: Callback function with comparison
+========
 Normal way                                                                                     Callback:
 function fn(){                                                                        function fn(callback){                     
 
@@ -64,8 +66,9 @@ fn();
 fn3();                                                                                fn(fn3);
 
 
-
+========
 E.g. 02:    with single callback parameter
+========
  Normal way:                                                                                     callback:     
  
  function learn() {                                                           function learn(callback1, callback2) {
@@ -86,9 +89,9 @@ E.g. 02:    with single callback parameter
      										                          I am learning, LWC!
  
  
- 
+ ========
  E.g. 03: with mulitple callback parameter
- 
+ ========
  Normal way:                                                                                     callback:     
  
  function learn() {                                                           function learn(callback1, callback2) {
@@ -115,8 +118,9 @@ E.g. 02:    with single callback parameter
  										                          I am learning, LWC!
  										                          I am learning from, Prashant Veer Singh!
 
-
+========
 E.g. 04:
+========
 function input(input1, input2, input3){
     console.log('inside input function');
     console.log('input1 is: ',input1);
@@ -137,8 +141,9 @@ function diff(d1, d2){
 input(6,4, sum);
 
 
-
+========
 E.g. 05:
+========
 function input(input1, input2, input3,input4){
     console.log('inside input function');
     console.log('input1 is: ',input1);
@@ -167,8 +172,9 @@ input 2 is: 4
 difference is:  2
 sum is:   10
 
-
+========
  E.g. 06: Asynchronous Call
+========
  function fetchData(callback) {
    setTimeout(() => {
      const data = { id: 1, name: "Veer - the developer" };
@@ -184,7 +190,9 @@ sum is:   10
  
  Output: Data received: { id: 1, name: 'Veer - the developer' }
 
+========
 E.g. 07: Use in LWC:
+========
 <template>
    
     <lightning-button variant="brand" label="Brand" title="Primary action" onclick={handleClick} 
@@ -246,8 +254,9 @@ handleClick() {
 
 }
 
-
+========
 E.g. 08: use of setInterval() & clearInterval():
+========
 <template>
     <p>Counter: {counter}</p>
     <lightning-button label="Start" onclick={startCounter}></lightning-button>
