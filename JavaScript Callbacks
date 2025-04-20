@@ -258,35 +258,50 @@ handleClick() {
 E.g. 08: use of setInterval() & clearInterval():
 ========
 <template>
-    <p>Counter: {counter}</p>
-    <lightning-button label="Start" onclick={startCounter}></lightning-button>
-    <lightning-button label="Stop" onclick={stopCounter}></lightning-button>
-</template>
 
+    <div>
+        <p>Counter:</p>  {counter}
+      </div>
+      <br/>
+    <lightning-button label="Start" title="Non-primary action" onclick={startCounter} 
+    class="slds-m-left_x-small"></lightning-button>
+
+    <lightning-button label="Stop" title="Non-primary action" onclick={stopCounter} 
+    class="slds-m-left_x-small"></lightning-button>
+
+    <lightning-button label="Reset" title="Non-primary action" onclick={restCounter} 
+    class="slds-m-left_x-small"></lightning-button>
+<br/>
+    
+</template>
 
 import { LightningElement } from 'lwc';
 
-export default class IntervalDemo extends LightningElement {
-    counter = 0;
-    intervalId;
+export default class CallbackDemo extends LightningElement {
 
-    startCounter() {
-        // Prevent multiple intervals
-        if (this.intervalId) return;
 
-        this.intervalId = setInterval(() => {
-            this.counter += 1;
-        }, 1000); // every 1 second
+    counter =0;
+    intervalId;   //will store the Id of the interval 1 to 24.8days 
+
+    startCounter(){
+
+        if(this.intervalId)
+            return;
+
+        this.intervalId= setInterval(()=>{
+            this.counter+=1;
+        },1000);
+
+    }
+    stopCounter(){
+        clearInterval(this.intervalId);
+        this.intervalId=null;    //reset the intervalId 
     }
 
-    stopCounter() {
+    restCounter(){
+        this.counter=0;
         clearInterval(this.intervalId);
-        this.intervalId = null;
-    }
-
-    disconnectedCallback() {
-        // Clean up when component is destroyed
-        clearInterval(this.intervalId);
+        this.intervalId=null;
     }
 }
 
