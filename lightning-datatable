@@ -107,7 +107,89 @@ export default class LearnLwc extends LightningElement {
         this.rowOffset += 100;
     }
 }
+==============================================================================================================
+Type 3. A data table with a column that can be sorted in ascending or descending order.
+==============================================================================================================
+<template>
+    <div style="height: 300px;">
+        <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}
+                hide-checkbox-column
+                default-sort-direction={defaultSortDirection}
+                sorted-direction={sortDirection}
+                sorted-by={sortedBy}
+                onsort={onHandleSort}>
+        </lightning-datatable>
+    </div>
+</template>
 
+
+
+
+import { LightningElement,wire } from 'lwc';
+import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
+
+const columns = [
+    { label: 'Id', fieldName: 'Id' },
+    { label: 'Name', fieldName: 'Name'},
+    { label: 'Status', fieldName: 'Active__c'},
+
+    //using fieldName: 'NumberOfEmployees' for sorting
+    { label: 'Number of Employees', fieldName: 'NumberOfEmployees', 
+        type: 'number',sortable: true,cellAttributes: { alignment: 'left' }},
+    //using fieldName: 'NumberOfEmployees' for sorting
+
+    { label: 'Website', fieldName: 'Website',type: 'url'},
+    { label: 'Phone', fieldName: 'phone', type: 'phone' },
+    
+];
+
+export default class LearnLwc extends LightningElement {
+    data = [];
+    columns = columns;
+    error;
+    defaultSortDirection = 'asc';
+    sortDirection = 'asc';
+    sortedBy;
+@wire(apexM)
+    wiredAccount({ data, error }) {
+    if (data) {
+      this.data = data;
+      this.error = undefined;
+    } else if (error) {
+      this.error = error;
+      this.data = undefined;
+    }
+  }
+  // Used to sort the 'Age' column
+  sortBy(field, reverse, primer) {
+    const key = primer
+        ? function (x) {
+              return primer(x[field]);
+          }
+        : function (x) {
+              return x[field];
+          };
+
+    return function (a, b) {
+        a = key(a);
+        b = key(b);
+        return reverse * ((a > b) - (b > a));
+    };
+}
+
+onHandleSort(event) {
+    const { fieldName: sortedBy, sortDirection } = event.detail;
+    const cloneData = [...this.data];
+
+    cloneData.sort(this.sortBy(sortedBy, sortDirection === 'asc' ? 1 : -1));
+    this.data = cloneData;
+    this.sortDirection = sortDirection;
+    this.sortedBy = sortedBy;
+}
+}
 ==============================
 Official salesforce documents: https://developer.salesforce.com/docs/component-library/bundle/lightning-datatable/example
 ============================== https://www.lightningdesignsystem.com/2e1ef8501/p/86f13a-data-table
