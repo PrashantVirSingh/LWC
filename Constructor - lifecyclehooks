@@ -1,0 +1,75 @@
+======================================================
+Example of constructor in Apex:
+======================================================
+      step 1: Create a class:
+public class DemoConstructor {
+
+    
+    string a;
+    integer i;
+    
+    
+   public DemoConstructor(){
+        system.debug('@@@ DemoConstructor');
+        a ='Welcome in LWC series. Today is Day:';
+        i=11;
+        system.debug(a+''+i);
+    }
+    
+    public void method1(){
+        system.debug(this.a+''+this.i);
+    }
+}
+
+    step 2: Open Anonymous window
+DemoConstructor  dm = new DemoConstructor();
+dm.method1();
+
+=============================================================
+LWC Constructor() & super() :
+=============================================================
+step 1: create a cmp:
+
+<template>
+    
+    <div>
+        {displayOut} <br/> from Parent: {parentProperty} <br/>from child:{childProp}
+    </div>
+</template>
+
+import ParentCmp from 'c/parentCmp';
+
+export default class DemoLifecyclehooks extends ParentCmp {
+
+    displayOut;
+    childProp= 'This is from child cmp';
+
+    constructor(){
+        //your logic here
+        super();
+        this.displayOut='Day 11 LWC course';
+        console.log('@@@ child cmp constructor');
+    }
+    
+}
+
+step 2: 
+import { LightningElement,api } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+
+    @api parentProperty ='Hello! I am from Parent Cmp';
+
+    constructor(){
+        super();
+        console.log('@@@ parent cmp constructor');
+    }
+
+    
+}
+
+step 3: Add demoLifecyclehooks using app builder
+
+
+=================Explanation=============
+https://youtu.be/CRiywkf3st4
