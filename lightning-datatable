@@ -126,8 +126,6 @@ Type 3. A data table with a column that can be sorted in ascending or descending
 </template>
 
 
-
-
 import { LightningElement,wire } from 'lwc';
 import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
 
@@ -163,7 +161,13 @@ export default class LearnLwc extends LightningElement {
       this.data = undefined;
     }
   }
-  // Used to sort the 'Age' column
+  
+  /* Used to sort the 'Age' column
+	A helper function to generate a comparator for Array.sort()
+	field = name of the property in the data objects to sort by (e.g., 'age', 'name')
+	reverse = Direcction of sort: 1 for ascending, -1 for descending
+	primer (optional) =A function that transforms the field value before comparing, e.g., to lowercase strings for case-insensitive sort*/
+	
   sortBy(field, reverse, primer) {
     const key = primer
         ? function (x) {
@@ -190,6 +194,12 @@ onHandleSort(event) {
     this.sortedBy = sortedBy;
 }
 }
+
+
+
+
+
+
 ==============================
 Official salesforce documents: https://developer.salesforce.com/docs/component-library/bundle/lightning-datatable/example
 ============================== https://www.lightningdesignsystem.com/2e1ef8501/p/86f13a-data-table
