@@ -1,0 +1,70 @@
+3. 
+            ===========
+             apex class
+            ===========
+public with sharing class Fetch_Account {
+    @AuraEnabled(cacheable=true)
+      public static list<Account> fetchAcc(){
+          list<Account> lstAcc = new list<Account>();
+          lstAcc=[select Id, Name, Active__c,NumberOfEmployees,Website,Phone from Account 
+          Where Website!=NULL AND Phone!=NULL Limit 10 WITH SECURITY_ENFORCED];
+          return lstAcc;
+  
+      }
+  }
+            ===========
+                lwc
+            ===========
+import { LightningElement } from 'lwc';
+import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
+export default class CallbackDemo extends LightningElement {
+accounts = [];
+constructor(){
+    super();
+apexM()
+            .then(result => {
+                this.accounts = result;
+                this.error = undefined;
+            })
+            .catch(error => {
+                this.error = error;
+                this.accounts = [];
+            });
+}
+}
+
+4. 
+           ===========
+            child cmp
+           ===========
+import {LightningElement, api} from 'lwc';
+export default class DemoLifecyclehooks extends LightningElement {
+   
+    constructor(){
+        super();
+        console.log('@@@ constructor');
+    const event = new CustomEvent('childloaded', {
+            detail: { message: 'Child component loaded' }
+        });
+        this.dispatchEvent(event);
+}
+}
+
+           ===========
+            parent cmp
+           ===========
+<template>
+  <h1>This is Parent Component</h1>
+  <c-demo-Lifecyclehooks onchildloaded={handlevt}></c-demo-Lifecyclehooks>
+
+</template>
+
+import { LightningElement,api } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+
+handlevt(event){
+ console.log('@@@ Event received:', event.detail.message);
+}
+  
+}
