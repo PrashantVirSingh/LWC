@@ -17,7 +17,7 @@ public with sharing class Fetch_Account {
             ===========
 import { LightningElement } from 'lwc';
 import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
-export default class CallbackDemo extends LightningElement {
+export default class DemoLifecyclehooks extends LightningElement {
 accounts = [];
 constructor(){
     super();
@@ -68,3 +68,27 @@ handlevt(event){
 }
   
 }
+
+5.
+import { LightningElement } from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
+import NAME_FIELD from '@salesforce/schema/Account.Name';
+
+export default class DemoLifecyclehooks extends LightningElement {
+    recordId = '001XXXXXXXXXXXXXXX'; // Use a real Account Id
+    name;
+
+    constructor() {
+        super();
+        console.log('@@@ Constructor called');
+        getRecord(this.recordId, { fields: [NAME_FIELD] })
+            .then(result => {
+                this.name = result.fields.Name.value;
+                console.log('Name from record:', this.name);
+            })
+            .catch(error => {
+                console.error('@@@ Error in constructor:', error);
+            });
+    }
+}
+
