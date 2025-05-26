@@ -70,6 +70,28 @@ export default class ParentCmp extends LightningElement {
 
 step 3: Add demoLifecyclehooks using app builder
 
+==============================================
+reuse shared logic across multiple components
+==============================================
+======parentCmp.js==========
+    import { LightningElement,api } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+
+ log(message) {
+        const timestamp = new Date().toISOString();
+        const className = this.constructor.name;
+        console.log(`@@@ [${timestamp}] [${className}]: ${message}`);
+    }  
+}
+=========demoLifecyclehooks.js=======
+    import ParentCmp from 'c/parentCmp';
+
+export default class DemoLifecyclehooks extends ParentCmp {
+   connectedCallback() {
+        this.log('Connected to the DOM');
+    }
+}
 
 =================Explanation=============
 https://youtu.be/CRiywkf3st4
