@@ -1,0 +1,53 @@
+<template>
+    <lightning-card title="Promise Demo with Complex Logic">
+        <div class="slds-p-around_medium">
+            <lightning-button label="Start Calculation" onclick={handleClick}></lightning-button>
+            <p class="slds-m-top_medium">{message}</p>
+        </div>
+    </lightning-card>
+</template>
+
+==================================
+import { LightningElement } from 'lwc';
+import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
+export default class CallbackDemo extends LightningElement {
+message = '';
+
+    handleClick() {
+        this.message = 'Processing...';
+        //javascript promise
+        const myPromise = new Promise((resolve, reject) => {
+            try {
+                let result = this.heavyCalculation();
+
+                if (result > 0) {
+                    resolve("Calculation successful: " + result);
+                } else {
+                    reject("Invalid result: " + result);
+                }
+            } catch (err) {
+                reject("Something went wrong: " + err.message);
+            }
+        });
+
+        myPromise
+            .then((result) => {
+                this.message = result;
+            })
+            .catch((error) => {
+                this.message = error;
+            })
+            .finally(() => {
+                console.log("Promise complete");
+            });
+    }
+
+    heavyCalculation() {
+        // Simulate complex logic
+        let num = Math.random() * 10 - 5; // Random number between -5 and +5
+        if (Math.random() < 0.1) {
+            throw new Error("Random failure occurred!");
+        }
+        return Math.floor(num);
+    }
+}
