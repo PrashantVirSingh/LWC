@@ -95,3 +95,166 @@ export default class DemoLifecyclehooks extends ParentCmp {
 
 =================Explanation=============
 https://youtu.be/CRiywkf3st4
+
+============Interview QA=================
+1. update property inside Constructor()?
+Ans: Yes
+import { LightningElement } from 'lwc';
+
+export default class LearnLwc extends LightningElement {
+
+ course;                                           
+
+ constructor(){
+    super();
+
+    console.log('@@@ current Course:', this.course);        
+
+    this.course='LWC';
+    console.log('@@@ new Course:',this.course);             
+ }
+
+}
+
+2. can we update child cmp's property inside parent cmp's constructor?
+Ans: NO
+
+
+3. can we access cmp's elements inside Constructor()?
+Ans: No, because value will be null which means we can't access
+import { LightningElement } from 'lwc';
+
+export default class LearnLwc extends LightningElement {
+
+ course='Salesforce';                                          
+
+ constructor(){
+    super();
+
+   const btn= this.template.querySelector('lightning-button');
+   console.log('@@@ btn:', btn);     //null
+   
+ }
+
+}
+
+
+4. can we call apex method inside constructor()?
+Ans: yes, but salesforce don't recommend 
+			===========
+             apex class
+            ===========
+public with sharing class Fetch_Account {
+    @AuraEnabled(cacheable=true)
+      public static list<Account> fetchAcc(){
+          list<Account> lstAcc = new list<Account>();
+          lstAcc=[select Id, Name, Active__c,NumberOfEmployees,Website,Phone from Account 
+          Where Website!=NULL AND Phone!=NULL Limit 10 WITH SECURITY_ENFORCED];
+          return lstAcc;
+  
+      }
+  }
+            ===========
+                lwc
+            ===========
+import { LightningElement } from 'lwc';
+import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
+export default class DemoLifecyclehooks extends LightningElement {
+accounts = [];
+constructor(){
+    super();
+apexM()
+            .then(result => {
+                this.accounts = result;
+                this.error = undefined;
+            })
+            .catch(error => {
+                this.error = error;
+                this.accounts = [];
+            });
+}
+}
+
+
+5. can we create and dispatch event in constructor()?
+Ans: No
+			===========
+            child cmp
+           ===========
+import {LightningElement, api} from 'lwc';
+export default class DemoLifecyclehooks extends LightningElement {
+   
+    constructor(){
+        super();
+        console.log('@@@ constructor');
+    const event = new CustomEvent('childloaded', {
+            detail: { message: 'Child component loaded' }
+        });
+        this.dispatchEvent(event);
+}
+}
+
+           ===========
+            parent cmp
+           ===========
+<template>
+  <h1>This is Parent Component</h1>
+  <c-demo-Lifecyclehooks onchildloaded={handlevt}></c-demo-Lifecyclehooks>
+
+</template>
+
+import { LightningElement,api } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+
+handlevt(event){
+ console.log('@@@ Event received:', event.detail.message);
+}
+  
+}
+
+
+import { LightningElement } from 'lwc';
+
+export default class LearnLwc extends LightningElement {
+
+                                        
+     constructor(){
+        super();
+        console.log('@@@ constructor');
+        const event = new CustomEvent('childloaded', {
+            detail: { message: 'Child component loaded' }
+        });
+        this.dispatchEvent(event);
+}
+}
+
+		====parent cmp====
+
+<template>
+    <h1>This is Parent Component</h1>
+  <c-learn-Lwc onchildloaded={handlevt}></c-learn-Lwc>
+</template>
+
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+
+
+    handlevt(event){
+ console.log('@@@ Event received:', event.detail.message);
+}
+}
+
+6. can you call lightning/ui*api inside constructor()?
+Ans: NO
+https://developer.salesforce.com/docs/platform/lwc/guide/data-wire-service-about.html
+
+
+7. can we use navaigation service (NavigationMixin) inside constructor()?
+Ans: no, because constructor is too early in cmp's lifecycle
+At this point: 
+1. cmp is only being instantiated
+2. DOM is not yet intialized
+3. NavigationMixin are not ready to use.
+
