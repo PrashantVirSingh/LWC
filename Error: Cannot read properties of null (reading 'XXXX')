@@ -1,0 +1,38 @@
+Explanation: https://www.youtube.com/watch?v=YssYXR_12ZY
+===========================================================
+<html>
+<head>
+  <title>Null Property Error Example</title>
+</head>
+
+ <!--<input id="myInput" type="text" />-->
+<body>
+  <script>
+    const input = document.getElementById('myInput'); 
+	console.log('@@@ input value:' ,input.value);
+   
+  </script>
+
+</body>
+</html>
+========child lwc===========
+import { LightningElement, api } from 'lwc';
+
+export default class LearnLwc extends LightningElement {
+
+    @api childprop;
+                                        
+     
+}
+========parent lwc===========
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+
+
+    constructor(){
+        super();
+        const accessChild = this.template.querySelector('c-learn-Lwc').childprop;
+        console.log('@@@ accessChild',accessChild);
+    }
+}
