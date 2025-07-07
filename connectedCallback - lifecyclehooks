@@ -1,0 +1,26 @@
+====childCmp.html====
+<template>
+    
+    <div>Explaination of LWC Day 15 </div>
+</template>
+
+  ====childCmp.js====
+import { LightningElement } from 'lwc';
+
+export default class ChildCmp extends LightningElement {
+
+    state;
+
+    constructor(){
+        super();
+        this.state=this.template.isConnected;
+        console.log('@@@ what is the state in constructor? : ',this.state);
+    }
+    connectedCallback(){
+
+        console.log('@@@ ChildCmp connectedCallback: ',this.template.isConnected);
+        this.state=this.template.isConnected;
+        console.log('@@@ what is the state? : ',this.state);
+    }
+    
+}
