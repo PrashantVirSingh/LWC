@@ -24,3 +24,80 @@ export default class ChildCmp extends LightningElement {
     }
     
 }
+
+=================Explanation=============
+https://youtu.be/8pkrxeDTLd0?si=nUXBFRJxd3SozrUX
+
+============Interview QA=================
+1. Can we set or access properties in connectedCallback()?
+Ans: Yes
+
+
+2. Can we access elements the cmp owns inside connectedCallback()?
+Ans: No
+<template>
+    
+   <div> <lightning-input type="checkbox" label="Red" checked> </lightning-input></div>
+</template>
+
+import { LightningElement } from 'lwc';
+
+import { LightningElement } from 'lwc';
+
+export default class ChildCmp extends LightningElement {
+
+   ele;
+   
+    connectedCallback(){
+        this.ele= this.template.querySelector('lightning-input');
+        console.log('@@@ element '+this.ele);
+          console.log('@@@ element '+this.ele.value);
+          
+    }
+    
+}
+Error: Cannot read properties of null 
+
+3. Can we call apex method inside connectedCallback()?
+Ans: Yes
+public with sharing class Fetch_Account {
+    @AuraEnabled(cacheable=true)
+      public static list<Account> fetchAcc(){
+          list<Account> lstAcc = new list<Account>();
+          lstAcc=[select Id, Name, Active__c,NumberOfEmployees,Website,Phone from Account Where Name Like 'W%' Limit 1];
+          return lstAcc;
+  
+      }
+  }
+  
+  
+  <template>
+    
+  
+
+<template for:each={accounts} for:item="acc">
+{acc.Name}
+
+</template>
+</template>
+
+import { LightningElement } from 'lwc';
+import apexM from '@salesforce/apex/Fetch_Account.fetchAcc';
+export default class ChildCmp extends LightningElement {
+
+   
+   accounts = [];
+    connectedCallback(){
+      apexM()
+            .then(result => {
+                this.accounts = result;
+                this.error = undefined;
+            })
+            .catch(error => {
+                this.error = error;
+                this.accounts = [];
+            });
+}
+          
+    }
+    
