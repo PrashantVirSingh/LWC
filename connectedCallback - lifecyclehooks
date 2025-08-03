@@ -32,7 +32,25 @@ https://youtu.be/8pkrxeDTLd0?si=nUXBFRJxd3SozrUX
 1. Can we set or access properties in connectedCallback()?
 Ans: Yes
 
+<template>
+    
+ {text}
+</template>
 
+import { LightningElement } from 'lwc';
+export default class ChildCmp extends LightningElement {
+
+   
+  text;
+
+  connectedCallback(){
+    this.text='12';
+  }
+   
+    }
+          
+
+    
 2. Can we access elements the cmp owns inside connectedCallback()?
 Ans: No
 <template>
@@ -42,21 +60,19 @@ Ans: No
 
 import { LightningElement } from 'lwc';
 
-import { LightningElement } from 'lwc';
-
 export default class ChildCmp extends LightningElement {
 
    ele;
    
     connectedCallback(){
-        this.ele= this.template.querySelector('lightning-input');
+        this.ele= this.template.querySelector('lightning-input').value;
         console.log('@@@ element '+this.ele);
-          console.log('@@@ element '+this.ele.value);
+          
           
     }
     
 }
-Error: Cannot read properties of null 
+Error:  
 
 3. Can we call apex method inside connectedCallback()?
 Ans: Yes
@@ -100,4 +116,46 @@ export default class ChildCmp extends LightningElement {
 }
           
     }
+
+
+4. Can we create & dispatch event in connectedCallback()?
+Ans: Yes
+
+<template>
     
+  <h1>Hello Child!</h1>
+</template>
+
+import { LightningElement } from 'lwc';
+export default class ChildCmp extends LightningElement {
+
+   
+  connectedCallback(){
+    const evt= new CustomEvent("helloparent");
+    this.dispatchEvent(evt);
+  }
+   
+   
+    }
+          
+
+	<template>
+    <c-child-Cmp onhelloparent={evtlistner}></c-child-Cmp>  
+    <h1>hello parent!</h1>
+</template>
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+    evtlistner(){
+       console.log('@@@ event listner');
+    }
+}
+
+5. Can we use navigation service inside connectedCallback()?
+Ans: Yes
+
+
+6. Can we call uiApi from connectedCallback()?
+Ans: yes
+=================Explanation=============
+https://www.youtube.com/watch?v=qJAK9gLmTok&list=PL3y3JMXmJvomioQWOZzxeSj8-ilUwsnPL&index=20
