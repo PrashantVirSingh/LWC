@@ -1,0 +1,37 @@
+<template>
+    
+  <div>Day 17: LWC</div>
+
+  <div>
+    <lightning-input type="toggle" label="Toggle value" checked>
+    </lightning-input>
+  </div>
+
+  Value: {toggleValue}
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+
+  toggleValue;
+  hasRendered = false;
+
+  renderedCallback(){
+
+    if(this.hasRendered) return;
+    this.hasRendered=true;
+
+    console.log('@@@ toggleValue 1st time: ',this.toggleValue);  //undefined
+
+    console.log('@@@ toggleValue value: ',this.template.querySelector('lightning-input').checked);
+
+    //updating property's value:
+    this.toggleValue = this.template.querySelector('lightning-input').checked;
+
+    
+    console.log('@@@ toggleValue 2nd time: ',this.toggleValue);
+
+
+  }
+  
+  }
