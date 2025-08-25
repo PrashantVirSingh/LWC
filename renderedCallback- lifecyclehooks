@@ -1,3 +1,6 @@
+======================================================
+renderedCallback:
+======================================================
 <template>
     
   <div>Day 17: LWC</div>
@@ -35,3 +38,95 @@ export default class ChildCmp extends LightningElement {
   }
   
   }
+                    ======================================================
+                            Day 19: renderedCallback Interview QA
+                    ======================================================
+1. renderedCallback() fires on property's update?										
+Ans: yes
+<template>
+<div>
+Value is {displayprop}
+</div>
+<lightning-input type="toggle" label="Toggle value" checked onchange={handlevalue}>
+    </lightning-input>
+</template>
+
+import { LightningElement } from 'lwc';
+export default class ChildCmp extends LightningElement {
+
+displayprop;     //decalaration but since no value is assigned therefore it will be undefined
+
+handlevalue(event){
+    this.displayprop= event.detail.checked;
+    console.log('@@@ value: ',this.displayprop);
+}
+renderedCallback(){
+    
+    console.log('@@@ value of renderedCallback: ',this.displayprop);
+}										
+										
+}				
+
+2. Can we set properties in renderedCallback()?
+Ans: yes
+<template>
+    
+  <div>
+Value is {displayprop}
+</div>
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+  displayprop;     //decalaration but since no value is assigned therefore it will be undefined
+
+
+renderedCallback(){
+  
+    console.log('@@@ value of renderedCallback initial: ',this.displayprop);
+    this.displayprop='Hello!';
+    console.log('@@@ value of renderedCallback updated: ',this.displayprop);    
+}		
+
+  }
+
+3. Can we access elements cmp owns inside renderedCallback()?
+Ans: yes
+<template>
+<div>
+Value is {displayprop}
+</div>
+<lightning-input type="toggle" label="Toggle value" checked onchange={handlevalue}>
+    </lightning-input>
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+  displayprop;     //decalaration but since no value is assigned therefore it will be undefined
+
+renderedCallback(){
+    
+    //console.log('@@@ value of renderedCallback: ',this.displayprop);
+    const ele = this.template.querySelector('lightning-input');
+    console.log('@@@ element: ',ele);
+    const eleValue = this.template.querySelector('lightning-input').checked;
+    console.log('@@@ element: ',eleValue);
+
+}
+
+  }
+
+4. Can we call an apex method inside renderedCallback()?
+Ans yes
+
+5. Can we create & dispatch events in renderedCallback()?
+Ans: yes
+
+
+6. Can we call uiApi from renderedCallback()?
+Ans: yes
+
+7. Can we use navigation service inside renderedCallback()?
+Ans: yes
