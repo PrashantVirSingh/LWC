@@ -1,0 +1,87 @@
+      ===parent===
+<template>
+    
+    <div>
+    <lightning-input type="toggle" label="Show cmp / hide cmp" checked onchange={handleChange}>
+    </lightning-input>
+    </div>
+
+    <div lwc:if={show}>
+        <!--calling cmp-->
+        <b>Child cmp is available</b>
+        <c-child-cmp></c-child-cmp>
+        
+    </div>
+    <div lwc:else>
+        <b>Child cmp is not available</b>
+    </div>
+    
+</template>
+
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+    
+    show = true;
+
+    handleChange(event){
+
+        
+        console.log('@@@ checked: ',this.template.querySelector('lightning-input').checked);
+        this.show = event.target.checked;
+    }
+}
+
+  ===child===
+<template>
+    
+<h1>Hello! I am child cmp</h1>
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+  connectedCallback(){
+    console.log('@@@ check cmp connected into DOM: ',this.template.isConnected);
+  }
+
+
+  renderedCallback(){
+    console.log('@@@ check cmp connected into DOM inside renderedCallback: ',this.template.isConnected);
+  }
+
+  disconnectedCallback(){
+    console.log('@@@ check cmp removed from DOM: ',this.template.isConnected);
+  }
+  }
+
+============================================================================
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+  display;
+  demoPropertyValue;
+
+  constructor(){
+    super();
+    this.display = 'constructor fired';
+    this.demoPropertyValue = 'hi! constructor';
+    console.log('@@@ from child constructor: ',this.display+ '  ==demoPropertyValue==> '+this.demoPropertyValue);
+   
+  }
+  
+  connectedCallback(){
+    this.demoPropertyValue = 'hi! connectedCallback';
+    console.log('@@@ from child connectedCallback: ',this.display+ '  ==demoPropertyValue==> '+this.demoPropertyValue);
+  }
+
+  renderedCallback(){
+    this.demoPropertyValue = 'hi! renderedCallback';
+    console.log('@@@ from child renderedCallback: ',this.display+ '  ==demoPropertyValue==> '+this.demoPropertyValue);
+  }
+
+  disconnectedCallback(){
+    console.log('@@@ from child disconnectedCallback: ',this.display+ '  ==demoPropertyValue==> '+this.demoPropertyValue);
+  }
+  }
