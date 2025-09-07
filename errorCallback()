@@ -1,0 +1,71 @@
+                                ====E.g. 01====
+==========
+Child Cmp
+==========
+<template>
+
+<div>
+    <b>Hi! I am child cmp</b>
+    <lightning-input type="toggle" label="Toggle value" checked>
+    </lightning-input>
+</div>
+
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+ 
+checkValue;
+
+    connectedCallback(){
+
+        console.log('child cmp connected: '+this.template.isConnected);
+        this.checkValue=this.template.querySelector('lightning-input').checked;
+
+    }
+
+}
+
+==========
+Parent Cmp
+==========
+<template>
+
+   <div><b>Hello! Parent cmp calling:</b>
+    <c-child-cmp></c-child-cmp>
+</div>
+    
+</template>
+
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+    
+   errorCallback(error,stack){
+
+    console.log('@@@ error: '+error);
+    console.log('@@@ stack: '+stack);
+
+   }
+   
+}
+                              ====E.g. 02 demonstration of child cmp's disconnection====
+==========
+Child Cmp
+==========
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+    checkValue;
+
+    renderedCallback(){
+
+        console.log('child cmp connected: '+this.template.isConnected);
+        this.checkValue=this.template.querySelector('lightning-input').checked;
+
+        this.y=this.x.sum;               //fetal error
+ 
+    }
+
+}
