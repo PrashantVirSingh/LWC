@@ -1,0 +1,95 @@
+                                ====E.g. 01====
+==========
+Child Cmp
+==========
+<template>
+  <div><b>Hello! I am child cmp</b> </div>  
+
+<lightning-input type="toggle" label="Toggle value" checked>
+    </lightning-input>
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+  eleValue;
+
+  connectedCallback(){
+    console.log('@@@ connected: '+this.template.isConnected);
+    this.eleValue = this.template.querySelector('lightning-input').value;
+  }
+
+  disconnectedCallback(){
+    console.log('@@@ disconnected: '+this.template.isConnected);
+  }
+
+  }
+
+==========
+Parent Cmp
+==========
+<template>
+    
+    <div><b>Parent is calling child:</b></div>
+    <c-child-Cmp>  </c-child-Cmp>
+    
+</template>
+
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+    
+    errorCallback(error,stack){
+        console.log('@@@ error: '+error);
+        console.log('@@@ stack: '+stack);
+    }
+}
+
+                              ====E.g. 02====
+==========
+Child Cmp
+==========
+<template>
+    <div>
+        <b>Child Component</b>
+       
+    </div>
+</template>
+
+import { LightningElement, api } from 'lwc';
+
+export default class ChildCmp extends LightningElement {
+   
+
+    // ❌ This will throw a fatal error because x is undefined
+    renderedCallback() {
+        console.log('Child rendered...');
+        let y = this.x.someProperty; // <-- undefined error
+    }
+
+    connectedCallback() {
+        console.log('Child connected');
+    }
+
+    disconnectedCallback() {
+        console.log('Child disconnected');
+    }
+}
+
+==========
+Parent Cmp
+==========
+<template>
+    <div><b>Parent with Error Boundary</b></div>
+    <c-child-cmp label="Hello from parent"></c-child-cmp>
+</template>
+
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+    errorCallback(error, stack) {
+        console.log('@@@ Parent caught error:', error.message);
+        console.log('@@@ Stack:', stack);
+    }
+}
