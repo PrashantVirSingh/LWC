@@ -1,0 +1,37 @@
+<template>
+
+  <div>Courses name</div>
+
+  <template for:each={course} for:item="ct" for:index="index">
+
+   <li key={ct.Id}>Position: {index}<br>
+    {ct.Name} = {ct.Course}
+   </li>
+  </template>
+  
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+    course =[];
+
+    singlecourse;
+
+    connectedCallback(){
+
+       this.course =[
+
+           {Id:1,Name:'Prashant', Course:'Salesforce'},
+
+           {Id:2,Name:'Veer',Course:'LWC'},
+
+           {Id:3,Name:'Prashant', Course:'Apex'},
+
+           {Id:4,Name:'Veer', Course:'Experience cloud'},
+
+           {Id:5,Name:'Veer', Course:'Salesforce'},
+       ];
+    }
+}
