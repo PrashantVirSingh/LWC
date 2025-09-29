@@ -1,0 +1,82 @@
+E.g. 01: 
+<template>
+
+    <lightning-input type="checkbox" label="Available" checked onchange={handlechange}>
+    </lightning-input>
+    <h1>{isAvailable}</h1>
+</template>
+
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+isAvailable = false;
+
+    handlechange(event){
+        console.log('@@@ current value of checkbox: '+event.target.checked);
+        this.isAvailable=event.target.checked;
+    }
+}			
+
+
+E.g. 02: set checked property's value dynamically
+<template>
+
+    <lightning-input type="checkbox" label="Available" checked={isAvailable} onchange={handlechange}>
+    </lightning-input>
+    <h1>{isAvailable}</h1>
+</template>
+
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+isAvailable = false;
+
+    handlechange(event){
+        console.log('@@@ current value of checkbox: '+event.target.checked);
+        this.isAvailable=event.target.checked;
+    }
+}
+
+E.g. 03: hide label using variant="label-hidden"
+<lightning-input type="checkbox" label="Available" variant="label-hidden" checked={isAvailable} 
+    onchange={handlechange}>
+    </lightning-input>
+    <h1>{isAvailable}</h1>		
+
+E.g. 04: blur event
+<template>
+
+    <lightning-input type="checkbox" label="blur" checked={isAvailable} onblur={handlechange}>
+    </lightning-input>
+    <h1>{isAvailable}</h1>
+</template>
+
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+isAvailable = false;
+
+    handlechange(event){
+        console.log('@@@ current value of checkbox: '+event.target.checked);
+        this.isAvailable=event.target.checked;
+    }
+}
+
+E.g. 05 commit event
+<template>
+
+    <lightning-input type="checkbox" label="commit" checked={isAvailable} oncommit={handlechange}>
+    </lightning-input>
+    <h1>{isAvailable}</h1>
+</template>
+
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+isAvailable = false;
+
+    handlechange(event){
+        console.log('@@@ current value of checkbox: '+event.target.checked);
+        this.isAvailable=event.target.checked;
+    }
+}
