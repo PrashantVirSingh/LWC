@@ -1,0 +1,37 @@
+<template>
+
+    <label for="Add pepperoni">Milk</label>
+<lightning-input type="checkbox-button" label="Add pepperoni"
+        checked value="pepperoni"
+    onchange={handleitem}>
+    </lightning-input>
+
+ <label for="Butter">Butter</label>
+<lightning-input type="checkbox-button" label="Butter"
+        checked value="Butter"
+     onchange={handleitem}>
+    </lightning-input>
+
+     <label for="Bread">Bread</label>
+<lightning-input type="checkbox-button"
+        label="Bread" checked
+        value="Bread"
+     onchange={handleitem}>
+    </lightning-input>
+   
+</template>
+
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+    handleitem(event){
+
+        console.log('@@@ user selected:', event.detail.checked);
+         console.log('@@@ user selected:', event.target.value);
+
+    }
+
+}
+
+Explaination: https://youtu.be/TF0sMERbmMA
