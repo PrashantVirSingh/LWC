@@ -35,3 +35,50 @@ export default class ChildCmp extends LightningElement {
        ];
     }
 }
+
+
+=================Example 2=====================
+
+<template>
+
+  <lightning-button label="update" onclick={updateContacts}></lightning-button>
+
+  <ul>
+    <template for:each ={contacts} for:item="contact">
+
+      <li key={contact.id}>
+        {contact.name} - {contact.role}
+      </li>
+
+    </template>
+  </ul>
+  
+</template>
+
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+
+    contacts=[
+        {id: 1, name: 'Prashant', role: 'CEO'},
+        {id: 2, name: 'Rahul',role: 'CTO'},
+        {id: 3, name: 'Ram',role: 'CFO'},
+        {id: 4, name: 'Shyam',role: 'Developer'},
+        {id: 5, name: 'Rahul',role: 'Developer'},
+    ];
+
+
+    updateContacts(){
+        const updateCt=[];
+        for(const contact of this.contacts){
+            if(contact.id === 5){
+                const updatedCts={...contact, role: 'Lead Developer'};
+                updateCt.push(updatedCts);
+            }else{
+                updateCt.push(contact);
+            }}
+
+            this.contacts=updateCt;
+    }
+}
