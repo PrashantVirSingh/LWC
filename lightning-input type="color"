@@ -1,0 +1,22 @@
+<template>
+
+ 
+  <lightning-input type="color" label="Select your color" value={colour}
+  onchange={handleChange}></lightning-input>
+
+
+  selected color is: {colour}
+</template>
+
+
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+colour ='#ED2929';
+
+
+handleChange(event){
+this.colour=event.detail.value;
+}
+    
+}
