@@ -1,0 +1,5 @@
+<template>
+
+  <lightning-input type="date"  label="Birthday Min" date-style="short" min="2025-04-31" max="2025-12-31"></lightning-input>
+
+</template>
