@@ -1,0 +1,5 @@
+<template>
+
+  <lightning-input type="Datetime" label="Please provide date and time" time-step-minutes="5" timezone="Indian Standard Time"></lightning-input>
+  
+</template>
