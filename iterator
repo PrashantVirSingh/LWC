@@ -1,0 +1,63 @@
+==============E.g.: working with list==================
+
+<template>
+
+
+  <template iterator:ct={contacts}>
+
+    {ct.value}
+
+     <template if:true={ct.first}>
+      {ct.first} ==> {ct.value}
+    </template>
+    <template if:true={ct.last}>
+      {ct.last} ==> {ct.value}
+    </template>
+
+  </template>
+  
+
+</template>
+
+  
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+contacts = ['Ram', 'Shyam', 'Sita', 'Rita'];
+   
+}
+
+==============E.g.: working with array==================
+<template>
+
+
+  <template iterator:ct={contacts}>
+
+    {ct.value.Id} ==> {ct.value.Name}
+
+     <template if:true={ct.first}>
+      {ct.first} ==> {ct.value.Name}
+    </template>
+    <template if:true={ct.last}>
+      {ct.last} ==> {ct.value.Name}
+    </template>
+  </template>
+  
+
+</template>
+
+  
+
+import { LightningElement, track} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+@track contacts = [
+    
+    {Id: '001', Name:'Ram'},
+    {Id: '002', Name:'Raj'},
+    {Id: '003', Name:'Ravi'},
+    {Id: '004', Name:'Rajesh'},
+    {Id: '005', Name:'Sajesh'},
+]; 
+   
+}
