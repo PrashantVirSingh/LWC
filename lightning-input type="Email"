@@ -1,0 +1,11 @@
+<template>
+
+<lightning-input type="Email" label="Please! enter email id" placeholder="test@gmail.com" 
+pattern=".+sfdc.+" message-when-pattern-mismatch="your msg" maxlength="100" minlength="10" message-when-too-short="min 10 please"
+multiple="true">
+
+</lightning-input>
+  
+</template>
+
+  
