@@ -1,0 +1,40 @@
+Example: using unnamed slot
+
+===========Parent Cmp=========
+
+<template>
+
+ Day 26 Part b: Using unnamed slot <br/>
+    <c-Child-Cmp>
+        Checkbox from parent cmp <br/>
+        <lightning-input type="checkbox"></lightning-input>
+    </c-Child-Cmp>
+    
+</template>
+
+===========Child Cmp=========
+<template>
+
+    <slot> </slot>
+    <p>
+        This is child cmp and we are learning unnamed slot.
+        Below text will be from parent cmp:
+    </p>
+    
+  
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+    renderedCallback(){
+    
+        var ele = this.template.querySelector('lightning-input');
+        console.log('@@@ ele: ', ele);
+
+        var slotele = this.querySelector('lightning-input');
+         console.log('@@@ slotele: ', slotele);
+    }
+
+}
