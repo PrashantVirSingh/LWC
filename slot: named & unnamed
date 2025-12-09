@@ -38,3 +38,43 @@ export default class ChildCmp extends LightningElement {
     }
 
 }
+
+===========================================Example: using named slot===========================================
+Child cmp:
+<template>
+
+    1st slot: <slot name="firstslot"></slot>
+    Header: <slot name="header"></slot> <br/>
+    <slot name="footer">Default HTML</slot> <br/>
+    <slot name="d"></slot>
+  <br/>
+  unamed slot: 
+
+   <slot></slot>
+
+   
+
+</template>
+
+  
+Parent Cmp:
+<template>
+
+       Parent Cmp<br/>
+    <c-Child-Cmp>
+      Hello! from Parent Cmp
+
+     <div slot="firstslot">Text to first slot</div>
+    
+     <span slot="header"> this is header</span>
+     
+        <p slot="footer"> this is footer</p>
+    </c-Child-Cmp>
+    
+</template>
+
+
+==========================================Videos=========================
+
+https://youtu.be/5b4mhsFM4Pc?si=BfAhq8Y5czkEIXid
+https://youtu.be/gX4-2XORGKo
