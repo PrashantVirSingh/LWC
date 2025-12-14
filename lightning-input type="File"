@@ -1,0 +1,19 @@
+<template>
+
+
+    <lightning-input type="File" label="Attachment" accept=".doc, .zip" multiple
+    onchange={handlefile}></lightning-input>
+
+
+</template>
+
+  
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+handlefile(event){
+    const uploadFiles = event.target.files;
+    console.log('@@@ uploadFiles',uploadFiles);
+}
+    
+}
