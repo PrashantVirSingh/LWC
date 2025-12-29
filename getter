@@ -1,0 +1,99 @@
+                      =====Example 01:=====
+
+ <template>
+
+Value from getter method 1: {_fullName}  <br/>
+
+Dynamic Value from getter method 2: {dynamicFullName}  <br/>
+
+</template>
+
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+firstName = 'Prashant';
+
+lastName="Veer Singh";
+
+
+
+get _fullName(){
+
+return  this.firstName + ' ' + this.lastName;
+
+}
+
+get dynamicFullName(){
+
+return  `${this.firstName}    ${this.lastName}`;
+
+}
+
+}
+
+
+                                             =====Example 02:=====
+<template>
+
+
+ Value from getter method 1: {_fullName} <br/>
+
+ Dynamic Value from getter method 2: {dynamicFullName}  <br/>
+
+
+ <!-- Neutral variant (default) -->
+        <lightning-button label="Update First Name" title="Non-primary action" 
+        onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+
+        <br/>
+
+        <!-- Neutral variant (default) -->
+        <lightning-button label="Increment" title="Non-primary action" 
+        onclick={increment} class="slds-m-left_x-small"></lightning-button>
+
+        The Value of Initial: {_initial}
+
+</template>
+
+  
+import { LightningElement} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+firstName = 'Prashant';
+
+lastName="Veer Singh";
+
+initial=10;
+
+get _fullName(){
+
+    console.log('@@@ getter _fullName fired');
+return  this.firstName + ' ' + this.lastName;
+
+}
+
+get dynamicFullName(){
+
+     console.log('@@@ getter dynamicFullName fired');
+
+return  `${this.firstName}    ${this.lastName}`;
+
+}
+
+handleClick(){
+
+    this.firstName = 'Mr. Prashant Salesforce';
+}
+
+get _initial(){
+   return this.initial;
+}
+
+set _initial(value){
+    this.initial = value;
+}
+increment(){
+this._initial++;
+}
+}
+
