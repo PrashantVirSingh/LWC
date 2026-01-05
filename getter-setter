@@ -98,3 +98,76 @@ this._initial++;
 }
 
 Explaination: https://youtu.be/UaHbe3qjQ4k
+
+
+
+										 =====Example 03:=====
+<template>
+
+<div>
+<lightning-button  label="Increment" variant="brand" onclick={incrementHandler}></lightning-button>
+        <p>Increment value is : {increment}</p><br/>
+
+        
+</div>
+ 
+</template>
+
+import { LightningElement,api} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+_increment=0;
+
+
+@api get increment(){
+
+    return this._increment;
+}
+
+set increment(value){
+    this._increment=value;
+}
+
+incrementHandler(){
+    //this._increment++;
+    this.increment++;
+
+}
+}
+  
+											=====Example 04:=====
+<template>
+
+<div>
+<lightning-button  label="Increment" variant="brand" onclick={incrementHandler}></lightning-button>
+        <p>Increment value is : {increment}</p><br/>
+
+        {validationscrenario}
+</div>
+ 
+</template>
+
+  
+import { LightningElement,api} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+_increment=0;
+validationscrenario;
+
+@api get increment(){
+
+    return this._increment;
+}
+
+set increment(value){
+    this.validationscrenario=value;
+}
+
+incrementHandler(){
+    //this._increment++;
+    this.increment++;
+
+}
+}
