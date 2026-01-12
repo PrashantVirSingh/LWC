@@ -1,0 +1,51 @@
+                                                          =====Child Cmp====
+<template>
+    <div>
+        {receiver} <br/>
+        {receiverprop} <br/>
+        {display}
+    </div>
+</template>
+
+  import { LightningElement,api} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+
+   @api receiver='Learning Salesforce';
+
+   receiverprop="LWC Day";
+
+   display;
+
+   get _receiverprop(){
+    return this.receiverprop;
+   }
+@api set _receiverprop(value){
+    this.receiverprop=value;
+}
+
+   @api method1(p1){
+        this.display=p1;
+    }
+}
+
+                                               =====Parent Cmp====
+<template>
+
+  <c-child-Cmp receiver=" Learning Salesforce from Veer - the developer"></c-child-Cmp>
+    
+</template>
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+    
+   
+renderedCallback(){
+
+    this.template.querySelector('c-child-Cmp')._receiverprop="Day 30 LWC Course Series";
+    this.template.querySelector('c-child-Cmp').method1('Hello World');
+}
+}
+
+========
+Video explaination: https://youtu.be/8Jm7YY7wbfw
