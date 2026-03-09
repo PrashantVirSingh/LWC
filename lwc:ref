@@ -1,0 +1,65 @@
+<template>
+
+<div lwc:ref="abc">first</div>
+<br/>
+
+<!--{display}-->
+
+<br/>
+
+<div lwc:ref="abc">second</div>
+
+<lightning-input lwc:ref="inp"
+type="text" label="Enter your name"></lightning-input>
+
+<lightning-button variant="Success" label="Submit" onclick={handleClick}></lightning-button>
+
+
+<template if:true={show}>
+
+    <lightning-input></lightning-input>
+</template>
+
+</template>
+
+import { LightningElement,api} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+    //display;
+
+    renderedCallback(){
+
+        var myEle = this.refs.abc.innerText;
+
+        console.log('@@@ myEle: ',myEle);
+
+        //this.display=myEle;
+
+        this.template.querySelector('lightning-input');
+    }
+
+  handleClick(){
+
+    console.log('@@@ value: ',this.refs.inp.value);
+  }
+}
+
+===================================Parent Cmp===========================
+
+<template>
+
+<c-child-Cmp lwc:ref="cal"></c-child-Cmp>
+
+<lightning-button label="Click Me" onclick={handleClick}></lightning-button>
+</template>
+
+import { LightningElement } from 'lwc';
+
+export default class ParentCmp extends LightningElement {
+    
+   handleClick(){
+
+    console.log('@@@ child cmp: ',this.refs.cal);
+   }
+}
+  
