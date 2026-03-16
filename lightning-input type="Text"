@@ -1,0 +1,28 @@
+<template>
+
+<lightning-input label="Enter your text" value="today we are learning LWC"></lightning-input>
+
+<lightning-input type="Text" label="Course Name" value={courseName}></lightning-input>
+
+<lightning-input type="Text" label="Course Name" value={courseDuration}></lightning-input>
+
+<lightning-button label="Submit" onclick={handleClick}></lightning-button>
+
+</template>
+
+  
+import { LightningElement,api} from 'lwc';
+export default class ChildCmp extends LightningElement {
+  
+  courseName='LWC';
+
+  courseDuration=12;
+
+  handleClick(){
+
+    this.courseName='';
+
+    this.courseDuration=null;
+  }
+}
+
