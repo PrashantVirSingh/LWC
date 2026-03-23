@@ -1,0 +1,39 @@
+<template>
+
+    <lightning-input type="time" label="Enter your time:" value="18:25:00" placeholder="Time please..."></lightning-input>
+
+
+
+     <lightning-input type="time" label="Enter your time:" value="18:25:00.000z"></lightning-input>
+
+
+     <lightning-input type="time" label="Enter your time:" placeholder="Time please..."></lightning-input>
+
+
+     <lightning-input type="time" label="Enter your time:" value="" placeholder="Time please..." required></lightning-input>
+
+
+     <lightning-input type="time" label="Enter your time:" value="18:25:00" disabled></lightning-input>
+
+     <lightning-input type="time" label="Enter your time step:" step="300"></lightning-input>
+
+     <lightning-input type="time" label="Enter your time:" value="18:25:00" field-level-help="Provide time"></lightning-input>
+
+
+     <lightning-input type="time" label="Enter your time:" value="18:25:00" time-style="short"></lightning-input>
+
+
+      <lightning-input type="time" label="Enter your time:" value="18:25:00" time-style="medium"></lightning-input>
+
+       <lightning-input type="time" label="Enter your time:" value="13:25:00" min="15:00" max="20:00"></lightning-input>
+
+
+    <lightning-input type="time" label="Enter your time:" value="13:25:00" min="15:00" max="20:00"
+    message-when-range-underflow="Please provide time more than 3PM " message-when-range-overflow="Provide time less than 8PM"></lightning-input>
+
+
+    <lightning-input type="time" label="Enter your time:" value="23:25:00" min="15:00" max="20:00"
+    message-when-range-underflow="Please provide time more than 3PM " message-when-range-overflow="Provide time less than 8PM"></lightning-input>
+</template>
+
+  
