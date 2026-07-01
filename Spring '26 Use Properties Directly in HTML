@@ -1,0 +1,76 @@
+<template>
+
+<div>
+<h1>Example 01: Mathematical Operations:</h1>
+
+<p>Total Price: {price*quantity}</p>
+
+
+    </div>
+
+    <div>
+<h1>Example 02: Ternary Operations:</h1>
+
+<lightning-input type="toggle" label="Ternary Operation" onchange={handle}>
+</lightning-input>
+
+Status: {isActive?'🟢Active Value':'🔴Inactive Value'}
+        </div>
+
+
+  <div>
+<h1>Example 03: String concatenation</h1>
+
+Full Name: {firstName+'   '+lastName}
+
+    </div>
+
+    <div>
+
+<h1>Example 04: Array element access:</h1>
+<p>First Subject in the array: {subject[0]} </br>
+Number of subjects: {subject.length}</p>
+        </div>  
+
+
+        <div>
+
+<h1>Example 05: Object Property Access:</h1>
+
+<p>first contact: {contact[0].firstName} </br>
+Second contact: {contact[1].email}</p>
+
+            </div>    
+
+</template>
+
+=================================
+
+
+import { LightningElement } from 'lwc';
+export default class SpringUpdate extends LightningElement {
+
+
+subject =['Salesforce','LWC','JSON','Apex','Admin'];
+
+contact= [
+
+    {firstName:'Ram',lastName:'Singh',email:'ram.singh@example.com'},
+    {firstName:'Laksham',lastName:'Singh',email:'lakshman.singh@example.com'},
+]
+
+price = 200;
+
+quantity = 15;
+
+isActive = false;
+
+firstName= 'spring 26';
+
+lastName = 'LWC update';
+
+handle(event){
+
+    this.isActive=event.detail.checked;
+}
+}
